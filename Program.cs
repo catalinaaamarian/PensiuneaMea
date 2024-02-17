@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using PensiuneaMea.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<PensiuneaMeaContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PensiuneaMeaContext") ?? throw new InvalidOperationException("Connection string 'PensiuneaMeaContext' not found.")));
 
 var app = builder.Build();
 
